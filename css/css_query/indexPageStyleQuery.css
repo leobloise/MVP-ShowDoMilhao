@@ -1,0 +1,54 @@
+@media(orientation: landscape){
+    
+    .content-main form{
+        padding: 2.4px;
+    }
+    .content-main form input[type = "submit"]{
+        margin-bottom: 22px;
+        
+    }
+}
+
+@media(orientation: landscape) and (min-height: 300px){
+    
+    .content-main form{
+        height: 150px;
+        padding: 10px;
+    }
+}
+
+
+@media(orientation: portrait) and (min-width: 360px){
+    .content-main form{
+        padding: 9px;
+    }
+}
+
+@media(min-width: 700px){
+    .content-main form{
+        padding: 10px;
+    }
+}
+
+@media(min-width: 1024px){
+    content-header img{
+        width: 200px;
+    }
+    body{
+        min-height: 60%;
+        min-width: 60%;
+    }
+    .body-content{
+        height: 100%;
+    }
+    .body-content form {
+        height: 100%;
+        font-size: 1.4em;
+    }
+    .body-content form input, .body-content form select{
+        width:  50%;
+    }
+    .body-content form input[type = 'submit']{
+        width: 30%;
+    }
+}

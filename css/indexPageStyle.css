@@ -1,0 +1,108 @@
+/*Editing the main card*/
+body{
+    animation: turnsIn 1s;
+}
+.content-header{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.content-header img{
+    max-width: 100% ;
+
+    margin: 10px;
+}
+
+.content-main {
+    color: white;
+}
+
+.content-main form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: var(--adjustFrom);
+}
+.content-main input, .content-main select{
+    margin: 10px auto;
+    border-radius: 10px;
+    border: 0.01em solid rgb(255, 255, 255);
+    outline: none;
+    width: 200px;
+    height: 30px;
+    background: none;
+    font-size: var(--adjustFrom);
+    color: white;
+    transition: background-color 0.1s;
+    cursor: pointer;
+    animation: fadeIn 3s;
+}
+
+.content-main input{
+    padding: 5px;
+}
+.content-main select:invalid{
+   background-color: rgb(62, 35, 158);
+}
+.content-main input:focus, .content-main select:focus{
+    outline: none;
+    background-color:rgb(39, 9, 146);
+}
+
+.content-main label{
+    text-align:  center;
+    font-weight: bold;
+    text-shadow: 0px 0px 3px black;
+    cursor: pointer;
+}
+
+.content-main form input[type = "submit"]{
+    font-weight: bold;
+    border: none;
+    width: 100px;
+    border-radius: 5px;
+    background-color: rgb(255, 166, 0);
+    cursor: pointer;
+    padding: 0;
+}
+
+.content-main form input[type = "submit"]:focus{
+    box-shadow: inset 1px 1px 5px rgb(155, 105, 13);
+    cursor: pointer;
+}
+
+::placeholder{
+    color: white;
+    opacity: 0.4;
+    font-style: italic;
+    padding: 10px;
+}
+.body-content{
+    animation: turnsIn 0.2s;
+    background-image: url('../img/bg-img.jpg');
+    background-size: cover;
+    background-position: right;
+    border-radius: 3px;
+}
+
+/*Animations*/
+
+@keyframes turnsIn{
+    from{
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+    to{
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeIn{
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
+}
