@@ -9,12 +9,19 @@ body{
 }
 .content-header img{
     max-width: 100% ;
-
+    transition: 1s;
     margin: 10px;
 }
 
 .content-main {
     color: white;
+    transition: 1s;
+    display: flex;
+    justify-content: center
+}
+.content-main img{
+
+    margin: 0 auto;
 }
 
 .content-main form{
