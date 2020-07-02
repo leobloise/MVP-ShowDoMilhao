@@ -1,4 +1,5 @@
 const formSubmit = document.querySelector(".content-main form input[type='submit']");
+let user;
 
 formSubmit.addEventListener('click', (e)=>{
     e.preventDefault();
@@ -12,12 +13,13 @@ formSubmit.addEventListener('click', (e)=>{
         alert('Selecione um estado válido');
         dataForm[1].focus();
     } else {
+        let city = dataForm[1].value;
         document.querySelector('.content-main').classList.add('opacity_zero');
         setTimeout(()=>{
             document.querySelector('.content-main').classList.remove('opacity_zero');
             document.querySelector('.content-main').innerHTML = '<img src = "./img/cuteLoading.gif">'
             }, 1000);
-        //Definir nome do usuário e localização
+        user = new User(name, city);
     }
 });
 
