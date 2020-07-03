@@ -7,7 +7,6 @@ function validation(dataForm){
         
         return -2;
     } else {
-        let city = dataForm[1].value;
         return 1;
     }
 }

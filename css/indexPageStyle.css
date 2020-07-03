@@ -17,7 +17,8 @@ body{
     color: white;
     transition: 1s;
     display: flex;
-    justify-content: center
+    justify-content: center;
+    transition: all 1s;
 }
 .content-main img{
 
@@ -40,7 +41,7 @@ body{
     background: none;
     font-size: var(--adjustFrom);
     color: white;
-    transition: background-color 0.1s;
+    transition: all 0.1s;
     cursor: pointer;
     animation: fadeIn 3s;
 }
@@ -92,6 +93,96 @@ body{
     border-radius: 3px;
 }
 
+.question{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;  
+    height: 260px;
+}
+
+.question-body{
+    text-align: center;
+  
+}
+
+.question-opt {
+    display: flex;
+    margin: 15px;
+    justify-content: space-around;
+}
+
+.question-opt button{
+    border: 1px solid white;
+    background: none;
+    color: white;
+    font-weight: bold;
+    font-size: 0.5em;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: 1s;
+}
+
+.question-opt button:focus{
+    background-color: white;
+    color: black;
+    outline: none;
+}
+
+.qtdLevelQuestion{
+    border-radius: 5px;
+    padding: 5px;
+    font-weight: lighter;
+    color: black;
+    background: yellow;
+}
+
+.qtdLevelQuestionred{
+    border-radius: 5px;
+    padding: 5px;
+    font-weight: lighter;
+    color: black;
+    background: red;
+}
+
+.qtdLevelQuestiongreen{
+    border-radius: 5px;
+    padding: 5px;
+    font-weight: lighter;
+    color: black;
+    background: green;
+}
+
+.question-show{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.question-show button, span{
+    margin: 2px;
+
+}
+
+.question-show button{
+    cursor: pointer;
+}
+
+.question-show button{
+    background: none;
+    border: none;
+    color: #ff6a00;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: 1s;
+}
+
+.question-show button:focus{
+   outline: none;
+   background-color: black;
+   padding: 10px;
+   border-radius: 10px;
+   color: white;
+}
 /*Animations*/
 
 @keyframes turnsIn{

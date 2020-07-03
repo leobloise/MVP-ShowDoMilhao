@@ -5,20 +5,51 @@
     }
     .content-main form input[type = "submit"]{
         margin-bottom: 22px;
-        
+    }
+    .question{
+        height: 150px;
+    }
+    .question-body{
+        margin: 0 5px;
+    }
+    .question-show{
+        flex-direction: row;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+    }
+    .question-show button{
+        background:blue;
+        border-radius: 5px;
+        height: 100%;
+    }
+    .question-show button:focus{
+        padding: 2px;
     }
 }
 
 @media(orientation: landscape) and (min-height: 300px){
-    
+    .question-opt button{
+        font-size: 1em;
+    }
     .content-main form{
         height: 150px;
         padding: 10px;
     }
 }
 
-
+@media(min-width: 1024px){
+    .question-body h1{
+        font-size: 1.2em;
+    }
+    .question-opt button{
+        margin: 10px;
+    }
+}
 @media(orientation: portrait) and (min-width: 360px){
+    .question-opt button{
+        font-size: 0.5em;
+    }
     .content-main form{
         padding: 9px;
     }
