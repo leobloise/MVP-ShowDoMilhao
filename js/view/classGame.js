@@ -107,7 +107,14 @@ class Game{
     }
 
     stopNow(){
-        alert('oi');
+        this.loadingScreen();
+        setTimeout(()=>{
+            this.removeLoadingScreen();
+            setTimeout(()=>{
+                 this.displayFinalScreen('Melhor um pássaro na mão do que dois voando, né?',1);
+            }, 2000);
+        }, 2000)
+       
     }
     takeAnwser(value, element){
         switch(value){
@@ -116,7 +123,6 @@ class Game{
                 setTimeout(()=>{
                     this.removeLoadingScreen();
                     setTimeout(()=>{
-                        this.mainScreen.innerHTML = '';
                         this.displayFinalScreen('Você perdeu!', 2, this.user.money);
                     }, 2000);
                 }, 2000)
@@ -179,8 +185,6 @@ class Game{
                     case 3:
                         // this.loadingScreen();
                         // this.removeLoadingScreen();
-                        this.mainScreen.innerHTML = '';
-                        this.displayFinalScreen('Você perdeu!', 2, this.user.money);
                         break;
                 }
                break;
@@ -188,6 +192,7 @@ class Game{
     }
     
     displayFinalScreen(text, situation = 2, before = ''){
+        this.mainScreen.innerHTML = '';
         let div = document.createElement('div');
         let headerDiv = document.createElement('div');
         div.setAttribute('class', 'finalscreen');
@@ -197,16 +202,26 @@ class Game{
         let h1 = document.createElement('h1');
         h1.innerText = text;
         // let span = this.counterMoney(before, 'beforeMoney') //antes de perde, parar ou ganhar.
-        headerDiv.appendChild(h1);
+        
         // contentDiv.appendChild(span);
         switch(situation){
             case 0:
                 //ganhou;
                 break;
             case 1:
-                //parou;
+                h1.classList.add('keep');
+                headerDiv.appendChild(h1);
+                let keepSpan = this.counterMoney(this.user.money, 'afterMoney');
+                let keepP = document.createElement('p');
+                keepP.innerText = ' Essa é a quantidade de $$ que você acumulou! Boa sorte e sucesso!';
+                contentDiv.appendChild(keepSpan);
+                contentDiv.appendChild(keepP)
+                div.appendChild(headerDiv);
+                div.appendChild(contentDiv);
+                this.mainScreen.appendChild(div);
                 break;
             case 2:
+                headerDiv.appendChild(h1);
                 this.user.money = Number(this.user.correctA)*500;
                 let loseSpan = this.counterMoney(this.user.money, 'afterMoney') //depois de perde.
                 let p = document.createElement('p');

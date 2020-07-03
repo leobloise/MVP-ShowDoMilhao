@@ -186,6 +186,9 @@ body{
     font-size: 1.5em;
     padding: 5px;
 }
+.keep{
+    font-size: 16px;
+}
 .finalscreem-content{
     display: flex;
     flex-direction: column;
