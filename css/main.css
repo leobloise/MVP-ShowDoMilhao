@@ -52,7 +52,7 @@ html::before{
     background-image: url('../img/bg-img.jpg');
     background-size: cover;
     background-position: right;
-    filter: blur(10px);
+    filter: blur(50px);
 }
 body{
     padding: 0px 0;

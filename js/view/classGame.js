@@ -31,12 +31,7 @@ class Game{
                 this.user = new User(capitalizeFirstWord(this.dataForm[0].value), this.dataForm[1].value);
                 this.dealer = new Dealer();
                 this.dealer.prepareQuestions(listQuestionsEasy, this.questions);
-                setTimeout(()=>{
-                    this.removeLoadingScreen();
-                    setTimeout(()=>{
-                        this.createQuestion(this.questions[this.control], 0 , this.user.money);
-                    }, 2000);   
-                }, 3000)
+                this.transition(()=>{this.createQuestion(this.questions[this.control], 0 , this.user.money)});
             break;
         }
     }
@@ -86,10 +81,10 @@ class Game{
         divPossibleAnwsers.setAttribute('class', 'question-opt');
         question.possibleAnwsers.forEach(option =>{
             if(question.correctAnwser == option){
-                let button = this.createButton(option, option,null,() => {this.takeAnwser(option, divQuestion)});
+                let button = this.createButton(option, option,null,() => {this.takeAnwser(option)});
                 divPossibleAnwsers.appendChild(button);
             } else if(question.correctAnwser){
-                let button = this.createButton(option, option,null,()=>{this.takeAnwser(-1, divQuestion)});
+                let button = this.createButton(option, option,null,()=>{this.takeAnwser(-1)});
                 divPossibleAnwsers.appendChild(button);
             }
         })
@@ -105,27 +100,22 @@ class Game{
         this.mainScreen.innerHTML = '';
         this.mainScreen.append(divQuestion);
     }
-
-    stopNow(){
+    transition(doSomething){
         this.loadingScreen();
         setTimeout(()=>{
             this.removeLoadingScreen();
             setTimeout(()=>{
-                 this.displayFinalScreen('Melhor um pássaro na mão do que dois voando, né?',1);
+                 doSomething();
             }, 2000);
         }, 2000)
-       
     }
-    takeAnwser(value, element){
+    stopNow(){
+        this.transition(()=>{this.displayFinalScreen('Melhor um pássaro na mão do que dois voando, né?',1)});
+    }
+    takeAnwser(value){
         switch(value){
             case -1:
-                this.loadingScreen();
-                setTimeout(()=>{
-                    this.removeLoadingScreen();
-                    setTimeout(()=>{
-                        this.displayFinalScreen('Você perdeu!', 2, this.user.money);
-                    }, 2000);
-                }, 2000)
+                this.transition(()=>{this.displayFinalScreen('Você perdeu!', 2, this.user.money)});
             break;
             case this.questions[this.control].correctAnwser:
                 switch(this.level){
@@ -183,6 +173,8 @@ class Game{
                         }
                         break;
                     case 3:
+                        this.user.money = 1000000;
+                        this.transition(()=>{this.displayFinalScreen('Você é um MILIONÁRIO!', 0)});
                         // this.loadingScreen();
                         // this.removeLoadingScreen();
                         break;
@@ -206,7 +198,16 @@ class Game{
         // contentDiv.appendChild(span);
         switch(situation){
             case 0:
-                //ganhou;
+                h1.classList.add('keep')
+                headerDiv.appendChild(h1);
+                let wonSpan = this.counterMoney(this.user.money, 'wonMoney');
+                let wonP = document.createElement('p');
+                wonP.innerText = `Meus parabéns!!! ${this.user.name.split(' ')[0]} e ${this.user.city}. A partir de hoje você é um milionário! Use o seu dinheiro com sabedoria!`;
+                contentDiv.appendChild(wonSpan);
+                contentDiv.appendChild(wonP);
+                div.appendChild(headerDiv);
+                div.appendChild(contentDiv);
+                this.mainScreen.appendChild(div);
                 break;
             case 1:
                 h1.classList.add('keep');
