@@ -3,9 +3,7 @@ class User{
         this.name = name;
         this.city = city;
         this.money = 0;
-        this.correctAnswers = {};
-    }
-    initialize(){
-
+        this.correctA = 0;
     }
 }
+

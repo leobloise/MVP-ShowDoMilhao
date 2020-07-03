@@ -20,3 +20,7 @@ function capitalizeFirstWord(str){
     return parted.join(' ');  
 }
 
+
+function getRndInteger(min, max) { //took from w3s
+    return Math.floor(Math.random() * (max - min + 1) ) + min;
+}

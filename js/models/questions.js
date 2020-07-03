@@ -33,3 +33,20 @@ listQuestionsHard = [{body: 'A compensação por perda é chamada de...',
 
 lastQuestion1M = [{body: 'Quantos anos o criador desse jogo possui?', 
 possibleAnwsers: ['18', '34', '76', '20'], correctAnwser: '20', level: '1000000'}];
+
+listQuestionsEasy.forEach((element,index) => {
+    element.id = index
+   
+});
+
+listQuestionsMedium.forEach((element,index) => {
+    element.id = index + listQuestionsEasy.length;
+   
+});
+
+listQuestionsHard.forEach((element,index) => {
+    element.id = index + (listQuestionsMedium.length+listQuestionsEasy.length);
+   
+});
+
+
