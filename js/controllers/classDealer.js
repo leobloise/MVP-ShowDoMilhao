@@ -6,7 +6,7 @@ class Dealer{
         let secondArrayHelperList = [];
             listQuestion.forEach( Element =>{
                 secondArrayHelperList.push(Element.id);
-                console.log(Element.id);
+                
             })
         for(let i = 0; i < 5; i++){
             console.log('i', i);
@@ -23,5 +23,9 @@ class Dealer{
             }
             console.log(arrayHelperGame);
         } 
+    }
+    prepareLastQuestion(arrayGameQuestion){
+        let helper = getRndInteger(0,lastQuestion1M.length - 1 );
+        arrayGameQuestion.push(new Question(0,lastQuestion1M[helper].body, lastQuestion1M[helper].level, lastQuestion1M[helper].possibleAnwsers, lastQuestion1M[helper].correctAnwser));
     }
 }

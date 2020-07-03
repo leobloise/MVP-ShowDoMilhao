@@ -6,6 +6,7 @@ class Game{
         this.questions = [];
         this.dealer;
         this.control = 0;
+        this.level = 0;
         this.initialize();
     }
     initialize(){
@@ -33,8 +34,7 @@ class Game{
                 setTimeout(()=>{
                     this.removeLoadingScreen();
                     setTimeout(()=>{
-                        this.createQuestion(this.questions[this.user.correctA], 0 , this.user.money);
-                       
+                        this.createQuestion(this.questions[this.control], 0 , this.user.money);
                     }, 2000);   
                 }, 3000)
             break;
@@ -62,7 +62,6 @@ class Game{
     counterMoney(value, color = ''){
         let span = document.createElement('span');
         span.setAttribute('class', `qtdLevelQuestion${color}`);
-        console.log(span);
         let ex = Number(value);
         span.innerHTML = ex.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'});
         return span;
@@ -82,8 +81,6 @@ class Game{
         divQuestion.setAttribute('class', 'question');
         let divBody = document.createElement('div');
         divBody.setAttribute('class', 'question-body');
-        console.log(this.questions);
-        console.log('before', question);
         divBody.innerHTML = `<h1>${question.body}</h1>`; 
         let divPossibleAnwsers = document.createElement('div');
         divPossibleAnwsers.setAttribute('class', 'question-opt');
@@ -119,27 +116,64 @@ class Game{
                 this.displayFinalScreen();
             break;
             case this.questions[this.control].correctAnwser:
-                if(Number(this.control) >= 4){
-                    this.control = 0;
-                    this.user.money = Number(this.user.money) + Number(this.questions[this.user.correctA].level);
-                    this.user.correctA = this.user.correctA + 1;
-                    document.querySelector('.qtdLevelQuestion').innerHTML = '';
-                    document.querySelector('.qtdLevelQuestionred').innerHTML = '';
-                    document.querySelector('.qtdLevelQuestiongreen').innerHTML = '';
-                    this.questions = [];
-                    this.dealer.prepareQuestions(listQuestionsMedium, this.questions);
-                    this.createQuestion(this.questions[this.control], eval(this.user.correctA*500), this.user.money);
-                } else {
-                    this.user.money = Number(this.user.money) + Number(this.questions[this.control].level);
-                    this.user.correctA = this.user.correctA + 1;
-                    this.control++;
-                    document.querySelector('.qtdLevelQuestion').innerHTML = '';
-                    document.querySelector('.qtdLevelQuestionred').innerHTML = '';
-                    document.querySelector('.qtdLevelQuestiongreen').innerHTML = '';
-                    this.createQuestion(this.questions[this.control], eval(this.user.correctA*500), this.user.money);
-                    
+                switch(this.level){
+                    case 0:
+                        this.user.money = Number(this.user.money) + Number(this.questions[this.control].level);
+                        this.user.correctA = this.user.correctA + 1;
+                        this.control++;
+                        document.querySelector('.qtdLevelQuestion').innerHTML = '';
+                        document.querySelector('.qtdLevelQuestionred').innerHTML = '';
+                        document.querySelector('.qtdLevelQuestiongreen').innerHTML = '';
+                        if(this.control <=4){
+                            console.log(this.questions[this.control]);
+                            this.createQuestion(this.questions[this.control], eval(this.user.correctA*500), this.user.money);
+                        } else if (this.control > 4){
+                            this.questions = [];
+                            this.control = 0;
+                            this.level++;
+                            this.dealer.prepareQuestions(listQuestionsMedium, this.questions);
+                            this.createQuestion(this.questions[this.control], eval(this.user.correctA*500), this.user.money);
+                            console.log('>4>0',this.questions[this.control]);
+                        }
+                        break;
+                    case 1:
+                        this.user.money = Number(this.user.money) + Number(this.questions[this.control].level);
+                        this.user.correctA = this.user.correctA + 1;
+                        this.control++;
+                        document.querySelector('.qtdLevelQuestion').innerHTML = '';
+                        document.querySelector('.qtdLevelQuestionred').innerHTML = '';
+                        document.querySelector('.qtdLevelQuestiongreen').innerHTML = '';
+                        if(this.control <= 4){
+                            this.createQuestion(this.questions[this.control], eval(this.user.correctA*500), this.user.money);
+                        } else if (this.control > 4){
+                            this.questions = [];
+                            this.control = 0;
+                            this.level++;
+                            this.dealer.prepareQuestions(listQuestionsHard, this.questions);
+                            this.createQuestion(this.questions[this.control], eval(this.user.correctA*500), this.user.money);
+                        }
+                        break;
+                    case 2:
+                        this.user.money = Number(this.user.money) + Number(this.questions[this.control].level);
+                        this.user.correctA = this.user.correctA + 1;
+                        this.control++;
+                        document.querySelector('.qtdLevelQuestion').innerHTML = '';
+                        document.querySelector('.qtdLevelQuestionred').innerHTML = '';
+                        document.querySelector('.qtdLevelQuestiongreen').innerHTML = '';
+                        if(this.control <= 4){
+                            this.createQuestion(this.questions[this.control], eval(this.user.correctA*500), this.user.money);
+                        } else if (this.control > 4){
+                            this.questions = [];
+                            this.control = 0;
+                            this.level++;
+                            this.dealer.prepareLastQuestion(this.questions);
+                            this.createQuestion(this.questions[this.control], 0, this.user.money)
+                        }
+                        break;
+                    case 3:
+                        alert('entrou!');
+                        break;
                 }
-
                break;
         }
     }

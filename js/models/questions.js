@@ -29,7 +29,7 @@ listQuestionsHard = [{body: 'A compensação por perda é chamada de...',
                 {body: 'Em que país nasceu Carmem Miranda?',
                 possibleAnwsers: ['Brasil', 'Espanha', 'Portugal', 'Argentina'], correctAnwser: 'Portugal', level: '100000'},
                 {body: 'Em que dia nasceu e em que dia foi registrado o Presidente Lula?', 
-                possibleAnwsers: ['6 e 27 de outubro', '8 e 27 de outubro', '9 e 26 de outubro', '7 e 23 de outubro'], correctAnwser: 'Boca', level: '100000'}];               
+                possibleAnwsers: ['6 e 27 de outubro', '8 e 27 de outubro', '9 e 26 de outubro', '7 e 23 de outubro'], correctAnwser: '6 e 27 de outubro', level: '100000'}];               
 
 lastQuestion1M = [{body: 'Quantos anos o criador desse jogo possui?', 
 possibleAnwsers: ['18', '34', '76', '20'], correctAnwser: '20', level: '1000000'}];
