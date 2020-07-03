@@ -7,10 +7,11 @@ class Game{
         this.dealer;
         this.control = 0;
         this.level = 0;
+        this.themeMusic = new Audio('./music/theme.mp3');
         this.initialize();
     }
     initialize(){
-        
+        this.themeMusic.play();
         this.startGame();
     }
     startGame(){
@@ -174,9 +175,7 @@ class Game{
                         break;
                     case 3:
                         this.user.money = 1000000;
-                        this.transition(()=>{this.displayFinalScreen('Você é um MILIONÁRIO!', 0)});
-                        // this.loadingScreen();
-                        // this.removeLoadingScreen();
+                        this.transition(()=>{this.displayFinalScreen(`${this.user.city} possui mais um MILIONÁRIO!`, 0)});
                         break;
                 }
                break;
