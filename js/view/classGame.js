@@ -8,6 +8,7 @@ class Game{
         this.control = 0;
         this.level = 0;
         this.themeMusic = new Audio('./music/theme.mp3');
+        this.upSoung = new Audio('./music/up.mp3');
         this.initialize();
     }
     initialize(){
@@ -119,6 +120,7 @@ class Game{
                 this.transition(()=>{this.displayFinalScreen('Você perdeu!', 2, this.user.money)});
             break;
             case this.questions[this.control].correctAnwser:
+                this.upSoung.play();
                 switch(this.level){
                     case 0:
                         this.user.money = Number(this.user.money) + Number(this.questions[this.control].level);
