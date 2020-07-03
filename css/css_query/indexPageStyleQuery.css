@@ -30,7 +30,7 @@
 
 @media(orientation: landscape) and (min-height: 300px){
     .question-opt button{
-        font-size: 1em;
+        font-size: 0.7em;
     }
     .content-main form{
         height: 150px;
@@ -81,5 +81,16 @@
     }
     .body-content form input[type = 'submit']{
         width: 30%;
+    }
+    .qtdLevelQuestionafterMoney{
+        font-size: 2em;
+        padding: 20px;
+    
+    }
+    .finalscreen-header h1{
+        font-size: 2em;
+    }
+    .finalscreem-content p{
+        font-size: 2em;
     }
 }

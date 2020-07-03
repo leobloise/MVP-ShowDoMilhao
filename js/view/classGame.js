@@ -112,8 +112,14 @@ class Game{
     takeAnwser(value, element){
         switch(value){
             case -1:
-                this.user.money = Number(this.user.correctA)*500;
-                this.displayFinalScreen();
+                this.loadingScreen();
+                setTimeout(()=>{
+                    this.removeLoadingScreen();
+                    setTimeout(()=>{
+                        this.mainScreen.innerHTML = '';
+                        this.displayFinalScreen('Você perdeu!', 2, this.user.money);
+                    }, 2000);
+                }, 2000)
             break;
             case this.questions[this.control].correctAnwser:
                 switch(this.level){
@@ -171,10 +177,46 @@ class Game{
                         }
                         break;
                     case 3:
-                        alert('entrou!');
+                        // this.loadingScreen();
+                        // this.removeLoadingScreen();
+                        this.mainScreen.innerHTML = '';
+                        this.displayFinalScreen('Você perdeu!', 2, this.user.money);
                         break;
                 }
                break;
+        }
+    }
+    
+    displayFinalScreen(text, situation = 2, before = ''){
+        let div = document.createElement('div');
+        let headerDiv = document.createElement('div');
+        div.setAttribute('class', 'finalscreen');
+        headerDiv.setAttribute('class', 'finalscreen-header');
+        let contentDiv = document.createElement('div');
+        contentDiv.setAttribute('class', 'finalscreem-content');
+        let h1 = document.createElement('h1');
+        h1.innerText = text;
+        // let span = this.counterMoney(before, 'beforeMoney') //antes de perde, parar ou ganhar.
+        headerDiv.appendChild(h1);
+        // contentDiv.appendChild(span);
+        switch(situation){
+            case 0:
+                //ganhou;
+                break;
+            case 1:
+                //parou;
+                break;
+            case 2:
+                this.user.money = Number(this.user.correctA)*500;
+                let loseSpan = this.counterMoney(this.user.money, 'afterMoney') //depois de perde.
+                let p = document.createElement('p');
+                p.innerText = 'Essa é a quantidade de $$ que você ganhou! Quem sabe numa próxima, né?';
+                contentDiv.appendChild(loseSpan);
+                contentDiv.appendChild(p)
+                div.appendChild(headerDiv);
+                div.appendChild(contentDiv);
+                this.mainScreen.appendChild(div);
+                break;
         }
     }
 }
