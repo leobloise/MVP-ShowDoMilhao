@@ -41,6 +41,7 @@ body{
     background: none;
     font-size: var(--adjustFrom);
     color: white;
+    box-shadow: 0px 0px 10px white;
     transition: all 0.1s;
     cursor: pointer;
     animation: fadeIn 3s;
@@ -60,7 +61,7 @@ body{
 .content-main label{
     text-align:  center;
     font-weight: bold;
-    text-shadow: 0px 0px 3px black;
+    text-shadow: 0px 0px 10px black;
     cursor: pointer;
 }
 
@@ -101,8 +102,9 @@ body{
 }
 
 .question-body{
+    color: #ffffff;
+    text-shadow: 0px 0px 10px;
     text-align: center;
-  
 }
 
 .question-opt {
@@ -120,11 +122,10 @@ body{
     border-radius: 50px;
     cursor: pointer;
     transition: 1s;
+    box-shadow: 0px 0px 5px #b4ff00;
 }
 
 .question-opt button:focus{
-    background-color: white;
-    color: black;
     outline: none;
 }
 
@@ -133,7 +134,8 @@ body{
     padding: 5px;
     font-weight: lighter;
     color: black;
-    background: yellow;
+    background: white;
+    box-shadow: 0px 0px 10px white;
 }
 
 .qtdLevelQuestionred{
@@ -141,7 +143,8 @@ body{
     padding: 5px;
     font-weight: lighter;
     color: black;
-    background: red;
+    background: white;
+    box-shadow: 0px 0px 10px white;
 }
 
 .qtdLevelQuestiongreen{
@@ -149,7 +152,8 @@ body{
     padding: 5px;
     font-weight: lighter;
     color: black;
-    background: green;
+    background: white;
+    box-shadow: 0px 0px 10px white;
 }
 
 .question-show{
@@ -170,16 +174,14 @@ body{
 .question-show button{
     background: none;
     border: none;
-    color: #ff6a00;
-    font-weight: bold;
+    color: white;
     text-transform: uppercase;
     transition: 1s;
+    text-shadow: 0px 0px 10px white;
 }
 
 .question-show button:focus{
    outline: none;
-   border-radius: 10px;
-   color: white;
 }
 .finalscreen-header{
     text-align: center;
@@ -196,22 +198,23 @@ body{
 }
 .finalscreem-content p{
     text-align: center;
-    color: #de9001;
+    color: white;
     font-weight: bolder;
     padding: 10px;
     text-shadow: 1px 1px 10px;
 }
 .qtdLevelQuestionafterMoney{
+    color: black;
     display: block;
-    background-color: #a91e1e;
-    box-shadow: 1px 1px 10px #a91e1e;
+    background-color: white;
+    box-shadow: 1px 1px 10px white;
     padding: 10px;
     border-radius: 10px;
 }
 .qtdLevelQuestionwonMoney{
     display: block;
     background-color: rgb(12, 173, 12);
-    box-shadow: 1px 1px 10px;
+    box-shadow: 1px 1px 10px rgb(12, 173, 12);
     padding: 10px;
     border-radius: 10px;
 }

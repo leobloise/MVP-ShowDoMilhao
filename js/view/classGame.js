@@ -8,11 +8,12 @@ class Game{
         this.control = 0;
         this.level = 0;
         this.themeMusic = new Audio('./music/theme.mp3');
-        this.upSoung = new Audio('./music/up.mp3');
+        this.upSound = new Audio('./music/up.mp3');
+        this.levelUpSound = new Audio('./music/levelup.mp3');
+        this.endSound = new Audio('./music/end-music.mp3');
         this.initialize();
     }
     initialize(){
-        this.themeMusic.play();
         this.startGame();
     }
     startGame(){
@@ -30,6 +31,11 @@ class Game{
             break;
             case 1:
                 this.loadingScreen();
+                this.endSound.volume = 0.3;
+                this.themeMusic.volume = 0.1;
+                this.upSound.volume = 0.3;
+                this.levelUpSound.volume = 0.3;
+                setInterval(()=>{this.themeMusic.play();}, this.themeMusic.duration);
                 this.user = new User(capitalizeFirstWord(this.dataForm[0].value), this.dataForm[1].value);
                 this.dealer = new Dealer();
                 this.dealer.prepareQuestions(listQuestionsEasy, this.questions);
@@ -117,62 +123,57 @@ class Game{
     takeAnwser(value){
         switch(value){
             case -1:
+                this.themeMusic.volume = 0;
+                this.endSound.play();
                 this.transition(()=>{this.displayFinalScreen('Você perdeu!', 2, this.user.money)});
             break;
             case this.questions[this.control].correctAnwser:
-                this.upSoung.play();
                 switch(this.level){
                     case 0:
                         this.user.money = Number(this.user.money) + Number(this.questions[this.control].level);
                         this.user.correctA = this.user.correctA + 1;
                         this.control++;
-                        document.querySelector('.qtdLevelQuestion').innerHTML = '';
-                        document.querySelector('.qtdLevelQuestionred').innerHTML = '';
-                        document.querySelector('.qtdLevelQuestiongreen').innerHTML = '';
                         if(this.control <=4){
-                            console.log(this.questions[this.control]);
-                            this.createQuestion(this.questions[this.control], eval(this.user.correctA*500), this.user.money);
+                            this.upSound.play();
+                            this.transition(()=>{this.createQuestion(this.questions[this.control], eval(this.user.correctA*500), this.user.money);});
                         } else if (this.control > 4){
                             this.questions = [];
                             this.control = 0;
+                            this.levelUpSound.play();
                             this.level++;
                             this.dealer.prepareQuestions(listQuestionsMedium, this.questions);
-                            this.createQuestion(this.questions[this.control], eval(this.user.correctA*500), this.user.money);
-                            console.log('>4>0',this.questions[this.control]);
+                            this.transition(()=>{this.createQuestion(this.questions[this.control], eval(this.user.correctA*500), this.user.money);});
                         }
                         break;
                     case 1:
                         this.user.money = Number(this.user.money) + Number(this.questions[this.control].level);
                         this.user.correctA = this.user.correctA + 1;
                         this.control++;
-                        document.querySelector('.qtdLevelQuestion').innerHTML = '';
-                        document.querySelector('.qtdLevelQuestionred').innerHTML = '';
-                        document.querySelector('.qtdLevelQuestiongreen').innerHTML = '';
                         if(this.control <= 4){
-                            this.createQuestion(this.questions[this.control], eval(this.user.correctA*500), this.user.money);
+                            this.upSound.play();
+                            this.transition(()=>{this.createQuestion(this.questions[this.control], eval(this.user.correctA*500), this.user.money);});
                         } else if (this.control > 4){
                             this.questions = [];
                             this.control = 0;
+                            this.levelUpSound.play();
                             this.level++;
                             this.dealer.prepareQuestions(listQuestionsHard, this.questions);
-                            this.createQuestion(this.questions[this.control], eval(this.user.correctA*500), this.user.money);
+                            this.transition(()=>{this.createQuestion(this.questions[this.control], eval(this.user.correctA*500), this.user.money);});
                         }
                         break;
                     case 2:
                         this.user.money = Number(this.user.money) + Number(this.questions[this.control].level);
                         this.user.correctA = this.user.correctA + 1;
                         this.control++;
-                        document.querySelector('.qtdLevelQuestion').innerHTML = '';
-                        document.querySelector('.qtdLevelQuestionred').innerHTML = '';
-                        document.querySelector('.qtdLevelQuestiongreen').innerHTML = '';
                         if(this.control <= 4){
-                            this.createQuestion(this.questions[this.control], eval(this.user.correctA*500), this.user.money);
+                            this.upSound.play();
+                            this.transition(()=>{this.createQuestion(this.questions[this.control], eval(this.user.correctA*500), this.user.money);});
                         } else if (this.control > 4){
                             this.questions = [];
                             this.control = 0;
                             this.level++;
                             this.dealer.prepareLastQuestion(this.questions);
-                            this.createQuestion(this.questions[this.control], 0, this.user.money)
+                            this.transition(()=>{this.createQuestion(this.questions[this.control], 0, this.user.money)});
                         }
                         break;
                     case 3:

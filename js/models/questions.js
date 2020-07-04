@@ -1,4 +1,4 @@
-listQuestionsEasy = [{body: 'Qual fruto é conhecido no Norte e Nordeste como "jerimum?', 
+listQuestionsEasy = [{body: 'Qual fruto é conhecido no Norte e Nordeste como "jerimum"?', 
                 possibleAnwsers: ['Caju', 'Abóbora', 'Chuchu', 'Côco'], correctAnwser: 'Abóbora', level: '1000'},
                 {body: 'Qual o coletivo de cães?', 
                 possibleAnwsers: ['Matilha', 'Rebanho', 'Alcateia', 'Manada'], correctAnwser: 'Matilha', level: '1000'},

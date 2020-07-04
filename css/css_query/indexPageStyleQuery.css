@@ -19,9 +19,11 @@
         align-items: center;
     }
     .question-show button{
-        background:blue;
+        box-shadow: 0px 0px 10px white;
+        background: white;
         border-radius: 5px;
         height: 100%;
+        color: black;
     }
     .question-show button:focus{
         padding: 2px;
