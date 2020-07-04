@@ -8,6 +8,7 @@ class Game{
         this.control = 0;
         this.level = 0;
         this.themeMusic = new Audio('./music/theme.mp3');
+        this.themeMusicState;
         this.upSound = new Audio('./music/up.mp3');
         this.levelUpSound = new Audio('./music/levelup.mp3');
         this.endSound = new Audio('./music/end-music.mp3');
@@ -33,22 +34,36 @@ class Game{
                 this.loadingScreen();
                 this.endSound.volume = 0.3;
                 this.themeMusic.volume = 0.1;
+                this.themeMusicState = true;
                 this.upSound.volume = 0.3;
                 this.levelUpSound.volume = 0.3;
                 setInterval(()=>{this.themeMusic.play();}, this.themeMusic.duration);
+                this.createSoundElement();
                 this.user = new User(capitalizeFirstWord(this.dataForm[0].value), this.dataForm[1].value);
                 this.dealer = new Dealer();
                 this.dealer.prepareQuestions(listQuestionsEasy, this.questions);
                 this.transition(()=>{this.createQuestion(this.questions[this.control], 0 , this.user.money)});
-                setTimeout(()=>{
-                    let button = this.createButton('', 'Opinião do Público', 'helpButton', ()=>{this.helpQuestion()});
-                    document.body.appendChild(button);
-                }, 4000);
-               
+                this.createButtonHelp(4000);
                 break;
         }
     }
-
+    createSoundElement(){
+        let img = document.createElement('img');
+                img.setAttribute("src", "./img/audioSoundMuted.png");
+                img.setAttribute('id', 'mutedSpeaker');
+                img.addEventListener('click', e =>{
+                    if(this.themeMusicState == true){
+                    img.src = './img/audioSound.png';
+                    this.themeMusic.volume = 0;
+                    this.themeMusicState = false;
+                    } else {
+                        img.src = './img/audioSoundMuted.png';
+                        this.themeMusicState = true;
+                        this.themeMusic.volume = 0.3;
+                    }
+                });
+                document.body.appendChild(img);
+    }
     loadingScreen(){
         this.mainScreen.classList.add('opacity_zero');
         setTimeout(()=>{
@@ -66,6 +81,15 @@ class Game{
     }   
     get getUser(){
         return this.user;
+    }
+    createButtonHelp(time = 0){
+        setTimeout(()=>{
+            let button = this.createButton('', 'Opinião do Público', 'helpButton', ()=>{this.helpQuestion()});
+            document.body.appendChild(button);
+        }, time);
+    }
+    removeButtonHelp(){
+        document.body.removeChild(document.querySelector('.helpButton'));
     }
     counterMoney(value, color = ''){
         let span = document.createElement('span');
@@ -123,6 +147,7 @@ class Game{
         }, 2000)
     }
     stopNow(){
+        this.removeButtonHelp();
         this.transition(()=>{this.displayFinalScreen('Melhor um pássaro na mão do que dois voando, né?',1)});
     }
     takeAnwser(value){
@@ -130,6 +155,7 @@ class Game{
             case -1:
                 this.themeMusic.volume = 0;
                 this.endSound.play();
+                this.removeButtonHelp();
                 this.transition(()=>{this.displayFinalScreen('Você perdeu!', 2, this.user.money)});
             break;
             case this.questions[this.control].correctAnwser:
@@ -140,14 +166,16 @@ class Game{
                         this.control++;
                         if(this.control <=4){
                             this.upSound.play();
-                            this.transition(()=>{this.createQuestion(this.questions[this.control], eval(this.user.correctA*500), this.user.money);});
+                            this.removeButtonHelp();
+                            this.transition(()=>{this.createButtonHelp();this.createQuestion(this.questions[this.control], eval(this.user.correctA*500), this.user.money);});
                         } else if (this.control > 4){
                             this.questions = [];
                             this.control = 0;
                             this.levelUpSound.play();
                             this.level++;
                             this.dealer.prepareQuestions(listQuestionsMedium, this.questions);
-                            this.transition(()=>{this.createQuestion(this.questions[this.control], eval(this.user.correctA*500), this.user.money);});
+                            this.removeButtonHelp();
+                            this.transition(()=>{this.createButtonHelp();this.createQuestion(this.questions[this.control], eval(this.user.correctA*500), this.user.money);});
                         }
                         break;
                     case 1:
@@ -156,14 +184,16 @@ class Game{
                         this.control++;
                         if(this.control <= 4){
                             this.upSound.play();
-                            this.transition(()=>{this.createQuestion(this.questions[this.control], eval(this.user.correctA*500), this.user.money);});
+                            this.removeButtonHelp();
+                            this.transition(()=>{this.createButtonHelp();this.createQuestion(this.questions[this.control], eval(this.user.correctA*500), this.user.money);});
                         } else if (this.control > 4){
                             this.questions = [];
                             this.control = 0;
                             this.levelUpSound.play();
                             this.level++;
                             this.dealer.prepareQuestions(listQuestionsHard, this.questions);
-                            this.transition(()=>{this.createQuestion(this.questions[this.control], eval(this.user.correctA*500), this.user.money);});
+                            this.removeButtonHelp();
+                            this.transition(()=>{this.createButtonHelp();this.createQuestion(this.questions[this.control], eval(this.user.correctA*500), this.user.money);});
                         }
                         break;
                     case 2:
@@ -172,12 +202,14 @@ class Game{
                         this.control++;
                         if(this.control <= 4){
                             this.upSound.play();
-                            this.transition(()=>{this.createQuestion(this.questions[this.control], eval(this.user.correctA*500), this.user.money);});
+                            this.removeButtonHelp();
+                            this.transition(()=>{this.createButtonHelp(); this.createQuestion(this.questions[this.control], eval(this.user.correctA*500), this.user.money);});
                         } else if (this.control > 4){
                             this.questions = [];
                             this.control = 0;
                             this.level++;
                             this.dealer.prepareLastQuestion(this.questions);
+                            this.removeButtonHelp();
                             this.transition(()=>{this.createQuestion(this.questions[this.control], 0, this.user.money)});
                         }
                         break;
@@ -200,9 +232,6 @@ class Game{
         contentDiv.setAttribute('class', 'finalscreem-content');
         let h1 = document.createElement('h1');
         h1.innerText = text;
-        // let span = this.counterMoney(before, 'beforeMoney') //antes de perde, parar ou ganhar.
-        
-        // contentDiv.appendChild(span);
         switch(situation){
             case 0:
                 h1.classList.add('keep')
@@ -244,7 +273,6 @@ class Game{
     }
     helpQuestion(){
        let cards = this.dealer.helpQuestion(this.questions[this.control], this.control);
-       console.log(cards);
        switch(cards){
            case '-2':
                alert('Você não pode mais pedir ajuda!');
@@ -253,7 +281,11 @@ class Game{
                 alert('Você não pode mais pedir ajuda nesse round!');
                 break;
             default:
-                alert('I\'m working!');
+                cards[0] = 'Jurados: ' + cards[0];
+                cards[1] = 'Plateia: ' + cards[1];
+                cards[2] = 'Universitários: ' + cards[2];
+                let stringCard = cards.join(' ; ');
+                alert(stringCard);
                 break;
        }
     }
