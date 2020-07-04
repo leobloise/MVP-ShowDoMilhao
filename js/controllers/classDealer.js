@@ -29,10 +29,19 @@ class Dealer{
     }
     
     helpQuestion(currentQuestion, index){
-        if(this.helpControl == 2){
+        console.log('antes de entrar: atual', index);
+        console.log('antes de entrar: helpRound', this.helpRound);
+        console.log('antes de entrar: helpControl', this.helpControl);
+        if(this.helpControl == 2 && index != this.helpRound){
+            console.log('helpControl: 2', index);
+            console.log('helpControl: 2', this.helpRound);
+            console.log('helpControl: 2', this.helpControl);
             document.body.removeChild(document.querySelector('.helpButton'));   
         }
-        if((this.helpControl < 3) && (index !== this.helpRound)){
+        if((this.helpControl < 3) && (index != this.helpRound)){
+            console.log('helpControl: < 3', index);
+            console.log('helpControl: < 3', this.helpRound);
+            console.log('helpControl: < 3', this.helpControl);
             this.helpRound = index;            
             this.helpControl++;
             let possibleAnwsers = [];
@@ -48,9 +57,15 @@ class Dealer{
             return possibleAnwsers;
         } else {
             if(this.helpControl == 3){
+                console.log('helpControl: == 3', index);
+                console.log('helpControl: == 3', this.helpRound);
+                console.log('helpControl: == 3', this.helpControl);
                 return '-2';
             }
             else if(this.helpRound == index){
+                console.log('helpControl: == index', index);
+                console.log('helpControl: == index|helpRound', this.helpRound);
+                console.log('helpControl: == index |this.helpControl', this.helpControl);
                 return '-3';
             }
         }

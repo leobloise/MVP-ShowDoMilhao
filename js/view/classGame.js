@@ -12,6 +12,9 @@ class Game{
         this.upSound = new Audio('./music/up.mp3');
         this.levelUpSound = new Audio('./music/levelup.mp3');
         this.endSound = new Audio('./music/end-music.mp3');
+        this.stopNowSound = new Audio('./music/StopNow.mp3');
+        this.finalMusic = new Audio('./music/finalquestion.mp3');
+        this.finalSound = new Audio('./music/finalSound.mp3');
         this.initialize();
     }
     initialize(){
@@ -59,7 +62,7 @@ class Game{
                     } else {
                         img.src = './img/audioSoundMuted.png';
                         this.themeMusicState = true;
-                        this.themeMusic.volume = 0.3;
+                        this.themeMusic.volume = 0.1;
                     }
                 });
                 document.body.appendChild(img);
@@ -88,8 +91,8 @@ class Game{
             document.body.appendChild(button);
         }, time);
     }
-    removeButtonHelp(){
-        document.body.removeChild(document.querySelector('.helpButton'));
+    removeButton(button){
+        document.body.removeChild(button);
     }
     counterMoney(value, color = ''){
         let span = document.createElement('span');
@@ -147,7 +150,10 @@ class Game{
         }, 2000)
     }
     stopNow(){
-        this.removeButtonHelp();
+        this.removeButton(document.querySelector('#mutedSpeaker'));
+        this.removeButton(document.querySelector('.helpButton'));
+        this.stopNowSound.play();
+        this.themeMusic.volume = 0;
         this.transition(()=>{this.displayFinalScreen('Melhor um pássaro na mão do que dois voando, né?',1)});
     }
     takeAnwser(value){
@@ -155,7 +161,8 @@ class Game{
             case -1:
                 this.themeMusic.volume = 0;
                 this.endSound.play();
-                this.removeButtonHelp();
+                this.removeButton(document.querySelector('.helpButton'));
+                this.removeButton(document.querySelector('#mutedSpeaker'));
                 this.transition(()=>{this.displayFinalScreen('Você perdeu!', 2, this.user.money)});
             break;
             case this.questions[this.control].correctAnwser:
@@ -166,16 +173,16 @@ class Game{
                         this.control++;
                         if(this.control <=4){
                             this.upSound.play();
-                            this.removeButtonHelp();
-                            this.transition(()=>{this.createButtonHelp();this.createQuestion(this.questions[this.control], eval(this.user.correctA*500), this.user.money);});
+                            
+                            this.transition(()=>{this.createQuestion(this.questions[this.control], eval(this.user.correctA*500), this.user.money);});
                         } else if (this.control > 4){
                             this.questions = [];
                             this.control = 0;
                             this.levelUpSound.play();
                             this.level++;
                             this.dealer.prepareQuestions(listQuestionsMedium, this.questions);
-                            this.removeButtonHelp();
-                            this.transition(()=>{this.createButtonHelp();this.createQuestion(this.questions[this.control], eval(this.user.correctA*500), this.user.money);});
+                            
+                            this.transition(()=>{this.createQuestion(this.questions[this.control], eval(this.user.correctA*500), this.user.money);});
                         }
                         break;
                     case 1:
@@ -184,16 +191,15 @@ class Game{
                         this.control++;
                         if(this.control <= 4){
                             this.upSound.play();
-                            this.removeButtonHelp();
-                            this.transition(()=>{this.createButtonHelp();this.createQuestion(this.questions[this.control], eval(this.user.correctA*500), this.user.money);});
+                            
+                            this.transition(()=>{this.createQuestion(this.questions[this.control], eval(this.user.correctA*500), this.user.money);});
                         } else if (this.control > 4){
                             this.questions = [];
                             this.control = 0;
                             this.levelUpSound.play();
                             this.level++;
                             this.dealer.prepareQuestions(listQuestionsHard, this.questions);
-                            this.removeButtonHelp();
-                            this.transition(()=>{this.createButtonHelp();this.createQuestion(this.questions[this.control], eval(this.user.correctA*500), this.user.money);});
+                            this.transition(()=>{this.createQuestion(this.questions[this.control], eval(this.user.correctA*500), this.user.money);});
                         }
                         break;
                     case 2:
@@ -202,14 +208,16 @@ class Game{
                         this.control++;
                         if(this.control <= 4){
                             this.upSound.play();
-                            this.removeButtonHelp();
-                            this.transition(()=>{this.createButtonHelp(); this.createQuestion(this.questions[this.control], eval(this.user.correctA*500), this.user.money);});
+                            
+                            this.transition(()=>{this.createQuestion(this.questions[this.control], eval(this.user.correctA*500), this.user.money);});
                         } else if (this.control > 4){
                             this.questions = [];
                             this.control = 0;
                             this.level++;
                             this.dealer.prepareLastQuestion(this.questions);
-                            this.removeButtonHelp();
+                            this.themeMusic.volume = 0;
+                            this.finalMusic.play();
+                            
                             this.transition(()=>{this.createQuestion(this.questions[this.control], 0, this.user.money)});
                         }
                         break;
@@ -234,6 +242,9 @@ class Game{
         h1.innerText = text;
         switch(situation){
             case 0:
+                this.removeButton(document.getElementById('mutedSpeaker'));
+                this.removeButton(document.querySelector('.helpButton'));
+                this.finalSound.play();
                 h1.classList.add('keep')
                 headerDiv.appendChild(h1);
                 let wonSpan = this.counterMoney(this.user.money, 'wonMoney');
