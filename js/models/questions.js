@@ -49,4 +49,20 @@ listQuestionsHard.forEach((element,index) => {
    
 });
 
+listQuestionsEasy.forEach((element,index) => {
+    element.solved = false
+   
+});
+
+listQuestionsMedium.forEach((element,index) => {
+    element.solved = false
+});
+
+listQuestionsHard.forEach((element,index) => {
+    element.solved = false
+   
+});
+
+
+
 

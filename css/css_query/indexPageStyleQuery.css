@@ -38,6 +38,10 @@
         height: 150px;
         padding: 10px;
     }
+    #mutedSpeaker{
+        width: 25px;
+        bottom: 3%;
+    }
 }
 
 @media(min-width: 1024px){
@@ -48,12 +52,15 @@
         margin: 10px;
     }
 }
-@media(orientation: portrait) and (min-width: 360px){
+@media(orientation: portrait) and (min-width: 310px){
     .question-opt button{
         font-size: 0.5em;
     }
     .content-main form{
         padding: 9px;
+    }
+    #mutedSpeaker{
+        width: 20px;
     }
 }
 

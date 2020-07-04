@@ -218,6 +218,24 @@ body{
     padding: 10px;
     border-radius: 10px;
 }
+#mutedSpeaker{
+    position: fixed;
+    width: 30px;
+    bottom: 5%;
+    left: 22%;
+    cursor: pointer;
+}
+
+.helpButton{
+    position: absolute;
+    margin: 5px;
+    padding: 5px;
+    background: white;
+    border: none;
+    box-shadow: 0px 0px 10px white;
+    border-radius: 5px;
+    animation: fadeIn 1s;
+}
 /*Animations*/
 
 @keyframes turnsIn{

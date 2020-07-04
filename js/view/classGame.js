@@ -40,7 +40,12 @@ class Game{
                 this.dealer = new Dealer();
                 this.dealer.prepareQuestions(listQuestionsEasy, this.questions);
                 this.transition(()=>{this.createQuestion(this.questions[this.control], 0 , this.user.money)});
-            break;
+                setTimeout(()=>{
+                    let button = this.createButton('', 'Opinião do Público', 'helpButton', ()=>{this.helpQuestion()});
+                    document.body.appendChild(button);
+                }, 4000);
+               
+                break;
         }
     }
 
@@ -70,7 +75,7 @@ class Game{
         return span;
     }
 
-    createButton(value, innerContent, classe = null, doSomething = () => {}){
+    createButton(value = '', innerContent, classe = null, doSomething = () => {}){
         let button = document.createElement('button');
         button.setAttribute('value', value);
         button.setAttribute('class', classe);
@@ -236,5 +241,20 @@ class Game{
                 this.mainScreen.appendChild(div);
                 break;
         }
+    }
+    helpQuestion(){
+       let cards = this.dealer.helpQuestion(this.questions[this.control], this.control);
+       console.log(cards);
+       switch(cards){
+           case '-2':
+               alert('Você não pode mais pedir ajuda!');
+               break;
+           case '-3':
+                alert('Você não pode mais pedir ajuda nesse round!');
+                break;
+            default:
+                alert('I\'m working!');
+                break;
+       }
     }
 }
