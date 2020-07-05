@@ -18,4 +18,4 @@ Atualmente, o jogo consta somente com 15 perguntas e 1 pergunta de 1 milhão de 
 
 Para ter mais informações, acesse o vídeo abaixo:
 
-[Clique aqui para acessar o vídeo](https://www.youtube.com)
+[Clique aqui para acessar o vídeo](https://www.youtube.com/watch?v=YjwaWWsNdP4)
