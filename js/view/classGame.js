@@ -152,7 +152,9 @@ class Game{
     }
     stopNow(){ //When you click stop now, something will happen.
         this.removeButton(document.querySelector('#mutedSpeaker'));
-        this.removeButton(document.querySelector('.helpButton'));
+        if(document.querySelector('.helpButton')){
+            this.removeButton(document.querySelector('.helpButton'));
+        }
         this.stopNowSound.play();
         this.themeMusic.volume = 0;
         this.transition(()=>{this.displayFinalScreen('Melhor um pássaro na mão do que dois voando, né?',1)});
@@ -162,7 +164,9 @@ class Game{
             case -1:
                 this.themeMusic.volume = 0;
                 this.endSound.play();
-                this.removeButton(document.querySelector('.helpButton'));
+                if(document.querySelector('.helpButton')){
+                    this.removeButton(document.querySelector('.helpButton'));
+                }
                 this.removeButton(document.querySelector('#mutedSpeaker'));
                 this.transition(()=>{this.displayFinalScreen('Você perdeu!', 2, this.user.money)});
             break;
