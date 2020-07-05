@@ -173,17 +173,16 @@ class Game{
                         this.user.correctA = this.user.correctA + 1;
                         this.control++;
                         if(this.control <=4){
+                            this.upSound.currentTime = 0;
                             this.upSound.play();
-                            
-                            this.transition(()=>{this.createQuestion(this.questions[this.control], eval(this.user.correctA*500), this.user.money);});
+                            this.createQuestion(this.questions[this.control], eval(this.user.correctA*500), this.user.money);
                         } else if (this.control > 4){
                             this.questions = [];
                             this.control = 0;
                             this.levelUpSound.play();
                             this.level++;
                             this.dealer.prepareQuestions(listQuestionsMedium, this.questions);
-                            
-                            this.transition(()=>{this.createQuestion(this.questions[this.control], eval(this.user.correctA*500), this.user.money);});
+                            this.createQuestion(this.questions[this.control], eval(this.user.correctA*500), this.user.money);
                         }
                         break;
                     case 1:
@@ -191,16 +190,17 @@ class Game{
                         this.user.correctA = this.user.correctA + 1;
                         this.control++;
                         if(this.control <= 4){
+                            this.upSound.currentTime = 0;
                             this.upSound.play();
                             
-                            this.transition(()=>{this.createQuestion(this.questions[this.control], eval(this.user.correctA*500), this.user.money);});
+                            this.createQuestion(this.questions[this.control], eval(this.user.correctA*500), this.user.money);
                         } else if (this.control > 4){
                             this.questions = [];
                             this.control = 0;
                             this.levelUpSound.play();
                             this.level++;
                             this.dealer.prepareQuestions(listQuestionsHard, this.questions);
-                            this.transition(()=>{this.createQuestion(this.questions[this.control], eval(this.user.correctA*500), this.user.money);});
+                            this.createQuestion(this.questions[this.control], eval(this.user.correctA*500), this.user.money);
                         }
                         break;
                     case 2:
@@ -208,9 +208,9 @@ class Game{
                         this.user.correctA = this.user.correctA + 1;
                         this.control++;
                         if(this.control <= 4){
+                            this.upSound.currentTime = 0;
                             this.upSound.play();
-                            
-                            this.transition(()=>{this.createQuestion(this.questions[this.control], eval(this.user.correctA*500), this.user.money);});
+                            this.createQuestion(this.questions[this.control], eval(this.user.correctA*500), this.user.money);
                         } else if (this.control > 4){
                             this.questions = [];
                             this.control = 0;
@@ -218,7 +218,9 @@ class Game{
                             this.dealer.prepareLastQuestion(this.questions);
                             this.themeMusic.volume = 0;
                             this.finalMusic.play();
-                            
+                            if(document.querySelector('.helpButton')){
+                                this.removeButton(document.querySelector('.helpButton'));
+                            }
                             this.transition(()=>{this.createQuestion(this.questions[this.control], 0, this.user.money)});
                         }
                         break;
@@ -244,8 +246,10 @@ class Game{
         switch(situation){
             case 0:
                 this.removeButton(document.getElementById('mutedSpeaker'));
-                this.removeButton(document.querySelector('.helpButton'));
-                this.finalSound.play();
+                if(document.querySelector('.helpButton')){
+                    this.removeButton(document.querySelector('.helpButton'));
+                }
+                setInterval(()=>{this.finalSound.play()}, this.finalSound.duration);
                 h1.classList.add('keep')
                 headerDiv.appendChild(h1);
                 let wonSpan = this.counterMoney(this.user.money, 'wonMoney');

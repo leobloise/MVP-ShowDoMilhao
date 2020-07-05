@@ -20,7 +20,6 @@ class Dealer{
                 i--;
                 continue;
             }
-            console.log('questões', arrayHelperGame);
         } 
     }
     prepareLastQuestion(arrayGameQuestion){
