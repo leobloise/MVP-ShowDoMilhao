@@ -20,8 +20,8 @@ class Game{
     initialize(){
         this.startGame();
     }
-    startGame(){
-        let errors = validation(this.dataForm);
+    startGame(){ //Init game and set some things up.
+        let errors = validation(this.dataForm); //Validate data.
         switch(errors){
             case -1:
               alert('Digite um nome válido');
@@ -33,7 +33,7 @@ class Game{
                 this.dataForm[1].focus();
                 this.dataForm = null;
             break;
-            case 1:
+            case 1: //Start the game.
                 this.loadingScreen();
                 this.endSound.volume = 0.3;
                 this.themeMusic.volume = 0.1;
@@ -41,11 +41,12 @@ class Game{
                 this.upSound.volume = 0.3;
                 this.levelUpSound.volume = 0.3;
                 setInterval(()=>{this.themeMusic.play();}, this.themeMusic.duration);
-                this.createSoundElement();
+                this.createSoundElement(); //Put the speaker img.
                 this.user = new User(capitalizeFirstWord(this.dataForm[0].value), this.dataForm[1].value);
                 this.dealer = new Dealer();
-                this.dealer.prepareQuestions(listQuestionsEasy, this.questions);
+                this.dealer.prepareQuestions(listQuestionsEasy, this.questions); //Take random questions.
                 this.transition(()=>{this.createQuestion(this.questions[this.control], 0 , this.user.money)});
+                //Something will fade out and then something will fade in.
                 this.createButtonHelp(4000);
                 break;
         }
@@ -94,7 +95,7 @@ class Game{
     removeButton(button){
         document.body.removeChild(button);
     }
-    counterMoney(value, color = ''){
+    counterMoney(value, color = ''){ //Create spans with money values.
         let span = document.createElement('span');
         span.setAttribute('class', `qtdLevelQuestion${color}`);
         let ex = Number(value);
@@ -111,7 +112,7 @@ class Game{
         return button;
     }
 
-    createQuestion(question, loss, keep){
+    createQuestion(question, loss, keep){ //Create the question interface.
         let divQuestion = document.createElement('div');
         divQuestion.setAttribute('class', 'question');
         let divBody = document.createElement('div');
@@ -149,14 +150,14 @@ class Game{
             }, 2000);
         }, 2000)
     }
-    stopNow(){
+    stopNow(){ //When you click stop now, something will happen.
         this.removeButton(document.querySelector('#mutedSpeaker'));
         this.removeButton(document.querySelector('.helpButton'));
         this.stopNowSound.play();
         this.themeMusic.volume = 0;
         this.transition(()=>{this.displayFinalScreen('Melhor um pássaro na mão do que dois voando, né?',1)});
     }
-    takeAnwser(value){
+    takeAnwser(value){ 
         switch(value){
             case -1:
                 this.themeMusic.volume = 0;
@@ -230,7 +231,7 @@ class Game{
         }
     }
     
-    displayFinalScreen(text, situation = 2, before = ''){
+    displayFinalScreen(text, situation = 2, before = ''){ //Display something at the end.
         this.mainScreen.innerHTML = '';
         let div = document.createElement('div');
         let headerDiv = document.createElement('div');
@@ -282,7 +283,7 @@ class Game{
                 break;
         }
     }
-    helpQuestion(){
+    helpQuestion(){ //get a help card.
        let cards = this.dealer.helpQuestion(this.questions[this.control], this.control);
        switch(cards){
            case '-2':
