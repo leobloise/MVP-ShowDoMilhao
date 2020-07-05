@@ -167,7 +167,9 @@ class Game{
                 if(document.querySelector('.helpButton')){
                     this.removeButton(document.querySelector('.helpButton'));
                 }
-                this.removeButton(document.querySelector('#mutedSpeaker'));
+                if(document.getElementById('mutedSpeaker')){
+                    this.removeButton(document.getElementById('mutedSpeaker'));
+                    }
                 this.transition(()=>{this.displayFinalScreen('Você perdeu!', 2, this.user.money)});
             break;
             case this.questions[this.control].correctAnwser:
@@ -221,6 +223,9 @@ class Game{
                             this.level++;
                             this.dealer.prepareLastQuestion(this.questions);
                             this.themeMusic.volume = 0;
+                            if(document.getElementById('mutedSpeaker')){
+                                this.removeButton(document.getElementById('mutedSpeaker'));
+                            }
                             this.finalMusic.play();
                             if(document.querySelector('.helpButton')){
                                 this.removeButton(document.querySelector('.helpButton'));
@@ -249,7 +254,9 @@ class Game{
         h1.innerText = text;
         switch(situation){
             case 0:
+                if(document.getElementById('mutedSpeaker')){
                 this.removeButton(document.getElementById('mutedSpeaker'));
+                }
                 if(document.querySelector('.helpButton')){
                     this.removeButton(document.querySelector('.helpButton'));
                 }
@@ -279,7 +286,11 @@ class Game{
                 break;
             case 2:
                 headerDiv.appendChild(h1);
+                if(this.level == 3){
+                    this.user.money = 0;
+                } else {
                 this.user.money = Number(this.user.correctA)*500;
+                }
                 let loseSpan = this.counterMoney(this.user.money, 'afterMoney') //depois de perde.
                 let p = document.createElement('p');
                 p.innerText = 'Essa é a quantidade de $$ que você ganhou! Quem sabe numa próxima, né?';
