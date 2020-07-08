@@ -15,24 +15,29 @@ class Game{
         this.stopNowSound = new Audio('./music/StopNow.mp3');
         this.finalMusic = new Audio('./music/finalquestion.mp3');
         this.finalSound = new Audio('./music/finalSound.mp3');
+        this.initForm = document.querySelector('#initForm input[type="submit"]');
         this.initialize();
     }
     initialize(){
         this.startGame();
+        console.log();
     }
     startGame(){ //Init game and set some things up.
-        let errors = validation(this.dataForm); //Validate data.
+        let errors = validation(this.dataForm);//Validate data.
+        Game.submitToggle(1, this.initForm); 
         switch(errors){
             case -1:
+              Game.submitToggle(0, this.initForm);
               alert('Digite um nome válido');
               this.dataForm[0].focus();
               this.dataForm = null;
             break;
-            case -2:
+            case -2: 
+                Game.submitToggle(0, this.initForm);
                 alert('Selecione um estado válido');
                 this.dataForm[1].focus();
                 this.dataForm = null;
-            break;
+                break;
             case 1: //Start the game.
                 this.loadingScreen();
                 this.endSound.volume = 0.3;
@@ -50,6 +55,9 @@ class Game{
                 this.createButtonHelp(4000);
                 break;
         }
+    }
+    static submitToggle(state, submit){
+        (state)?submit.disabled = true:submit.disabled = false;
     }
     createSoundElement(){
         let img = document.createElement('img');
@@ -151,7 +159,9 @@ class Game{
         }, 2000)
     }
     stopNow(){ //When you click stop now, something will happen.
-        this.removeButton(document.querySelector('#mutedSpeaker'));
+        if(document.querySelector('#mutedSpeaker')){
+            this.removeButton(document.querySelector('#mutedSpeaker'));
+        }
         if(document.querySelector('.helpButton')){
             this.removeButton(document.querySelector('.helpButton'));
         }
